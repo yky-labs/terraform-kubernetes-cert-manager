@@ -34,7 +34,7 @@ module "ca" {
   source = "../ca"
 
   namespace = var.namespace
-  
+
   depends_on = [
     module.self_signed
   ]

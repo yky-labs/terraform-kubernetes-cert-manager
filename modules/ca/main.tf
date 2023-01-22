@@ -32,13 +32,14 @@ resource "kubectl_manifest" "cert" {
 }
 
 data "kubernetes_secret_v1" "cert" {
-  depends_on = [
-    kubectl_manifest.cert
-  ]
   metadata {
     name      = local.secret_name
     namespace = var.namespace
   }
+
+  depends_on = [
+    kubectl_manifest.cert
+  ]
 }
 
 resource "kubectl_manifest" "this" {
@@ -60,6 +61,7 @@ resource "kubectl_manifest" "this" {
 }
 
 resource "kubectl_manifest" "ca_trust_bundle" {
+  count = (var.create_trust_bundle) ? 1 : 0
 
   yaml_body = <<-EOF
     apiVersion: trust.cert-manager.io/v1alpha1

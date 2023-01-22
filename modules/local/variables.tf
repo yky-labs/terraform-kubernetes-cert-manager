@@ -1,12 +1,6 @@
 # (c) 2023 yky-labs
 # This code is licensed under MIT license (see LICENSE for details)
 
-variable "name" {
-  type        = string
-  description = "The deploy name. Used to contextualize the name of the generated resources."
-  default     = "cert-manager"
-}
-
 variable "namespace" {
   type        = string
   description = "Kubernetes namespace."

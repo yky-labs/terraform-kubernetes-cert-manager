@@ -8,9 +8,9 @@ resource "kubectl_manifest" "this" {
     kind: ${var.kind}
     metadata:
       name: ${var.name}
-      %{~ if var.namespace != null ~}
+      %{~if var.namespace != null~}
       namespace: ${var.namespace}
-      %{~ endif ~}
+      %{~endif~}
     spec:
       selfSigned: {}  
   EOF

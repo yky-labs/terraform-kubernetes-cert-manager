@@ -4,9 +4,9 @@
 locals {
   name = (var.staging) ? "${var.name}-staging" : var.name
   server_url = coalesce(var.server_url, (
-    (var.staging) ? 
-      "https://acme-staging-v02.api.letsencrypt.org/directory" :
-      "https://acme-v02.api.letsencrypt.org/directory"
+    (var.staging) ?
+    "https://acme-staging-v02.api.letsencrypt.org/directory" :
+    "https://acme-v02.api.letsencrypt.org/directory"
   ))
 }
 
@@ -17,14 +17,14 @@ resource "kubectl_manifest" "this" {
     kind: ${var.kind}
     metadata:
       name: ${local.name}
-      %{~ if var.namespace != null ~}
+      %{~if var.namespace != null~}
       namespace: ${var.namespace}
-      %{~ endif ~}
+      %{~endif~}
     spec:
       acme:
-        %{~ if var.email != null ~}
+        %{~if var.email != null~}
         email: ${var.email}
-        %{~ endif ~}
+        %{~endif~}
         server: ${local.server_url}
         privateKeySecretRef:
           name: ${local.name}-account-key

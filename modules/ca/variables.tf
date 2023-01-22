@@ -27,7 +27,7 @@ variable "secret_name" {
   type        = string
   description = "The name of the secret which contains the CA certificate."
   default     = null
-} 
+}
 
 variable "create_certificate" {
   type        = bool
