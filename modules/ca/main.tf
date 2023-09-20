@@ -2,11 +2,17 @@
 # This code is licensed under MIT license (see LICENSE for details)
 
 locals {
+  # The common name of the certificate.
   common_name       = coalesce(var.common_name, var.name)
+
+  # The name of the secret that contains the certificate.
   secret_name       = coalesce(var.secret_name, "${var.name}-cert")
+
+  # The name of the trust-manager bundle.
   trust_bundle_name = var.name
 }
 
+# Create the CA certificate.
 resource "kubectl_manifest" "cert" {
   count = var.create_certificate ? 1 : 0
 
@@ -31,6 +37,7 @@ resource "kubectl_manifest" "cert" {
 
 }
 
+# Get the CA certificate.
 data "kubernetes_secret_v1" "cert" {
   metadata {
     name      = local.secret_name
@@ -42,6 +49,7 @@ data "kubernetes_secret_v1" "cert" {
   ]
 }
 
+# Create the CA certificate's issuer.
 resource "kubectl_manifest" "this" {
 
   yaml_body = <<-EOF
@@ -60,6 +68,7 @@ resource "kubectl_manifest" "this" {
   ]
 }
 
+# Create the trust-manager bundle.
 resource "kubectl_manifest" "ca_trust_bundle" {
   count = (var.create_trust_bundle) ? 1 : 0
 

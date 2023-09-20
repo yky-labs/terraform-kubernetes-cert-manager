@@ -4,12 +4,13 @@
 variable "namespace" {
   type        = string
   description = "Kubernetes namespace."
+  default     = "cert-manager"
 }
 
 variable "create_namespace" {
   type        = bool
   description = "Create the Kunernetes namespace."
-  default     = false
+  default     = true
 }
 
 variable "certmanager_chart_version" {

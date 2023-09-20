@@ -7,7 +7,7 @@ output "cert_secret_name" {
 }
 
 output "cert_crt" {
-  value       = data.kubernetes_secret_v1.cert.data.crt
+  value       = data.kubernetes_secret_v1.cert.data["ca.crt"]
   description = "The public certificate of the CA."
 }
 

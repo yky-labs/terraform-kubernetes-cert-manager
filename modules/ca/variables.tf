@@ -10,7 +10,7 @@ variable "name" {
 variable "namespace" {
   type        = string
   description = "Kubernetes namespace."
-  default     = null
+  default     = "cert-manager"
 }
 
 variable "kind" {
