@@ -4,7 +4,7 @@
 variable "name" {
   type        = string
   description = "The name of the issuer."
-  default     = "letsencrypt-http01"
+  default     = "http01"
 }
 
 variable "namespace" {

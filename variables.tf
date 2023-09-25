@@ -22,6 +22,7 @@ variable "create_namespace" {
 variable "chart_version" {
   type        = string
   description = "Helm Chart version."
+  default     = null
 }
 
 variable "chart_values" {

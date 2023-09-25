@@ -4,7 +4,7 @@
 variable "name" {
   type        = string
   description = "The name of the issuer."
-  default     = "letsencrypt-dns01-cloudflare"
+  default     = "dns01-cloudflare"
 }
 
 variable "namespace" {
