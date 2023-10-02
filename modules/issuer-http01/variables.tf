@@ -1,16 +1,16 @@
 # (c) 2023 yky-labs
 # This code is licensed under MIT license (see LICENSE for details)
 
+variable "namespace" {
+  type        = string
+  description = "Kubernetes namespace."
+  default     = null
+}
+
 variable "name" {
   type        = string
   description = "The name of the issuer."
   default     = "http01"
-}
-
-variable "namespace" {
-  type        = string
-  description = "Kubernetes namespace."
-  default     = "cert-manager"
 }
 
 variable "server_url" {

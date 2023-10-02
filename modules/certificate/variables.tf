@@ -30,7 +30,7 @@ variable "issuer_name" {
 
 variable "hostnames" {
   type        = list(string)
-  default     = []
+  default     = null
   description = "Hostnames to use for Coder"
 }
 

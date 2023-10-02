@@ -3,7 +3,7 @@
 
 variable "namespace" {
   type        = string
-  default     = "cert-manager"
+  default     = null
   description = "Namespace to deploy the issuer to"
 }
 

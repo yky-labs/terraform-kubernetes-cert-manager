@@ -10,28 +10,39 @@ locals {
   ))
 }
 
-resource "kubectl_manifest" "this" {
-
-  yaml_body = <<-EOF
-    apiVersion: cert-manager.io/v1
-    kind: ${var.kind}
-    metadata:
-      name: ${local.name}
-      %{~if var.namespace != null~}
-      namespace: ${var.namespace}
-      %{~endif~}
-    spec:
-      acme:
-        email: ${var.email}
-        server: ${local.server_url}
-        privateKeySecretRef:
-          name: ${local.name}-account-key
-        solvers:
-        - dns01:
-            cloudflare:
-              apiTokenSecretRef:
-                name: ${var.api_token_secret}
-                key: ${var.api_token_key}
-  EOF
-
+resource "kubernetes_manifest" "this" {
+  manifest = {
+    apiVersion = "cert-manager.io/v1"
+    kind       = var.kind
+    metadata = {
+      Issuer = {
+        name      = var.name
+        namespace = var.namespace
+      }
+      ClusterIssuer = {
+        name = var.name
+      }
+    }[var.kind]
+    spec = {
+      acme = {
+        email  = var.email
+        server = local.server_url
+        privateKeySecretRef = {
+          name = "${local.name}-account-key"
+        }
+        solvers = [
+          {
+            dns01 = {
+              cloudflare = {
+                apiTokenSecretRef = {
+                  name = var.api_token_secret
+                  key  = var.api_token_key
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
 }
