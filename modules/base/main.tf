@@ -5,42 +5,44 @@
 module "cert_manager" {
   source = "../.."
 
-  chart_version    = var.certmanager_chart_version
   namespace        = var.namespace
   create_namespace = var.create_namespace
+  chart_version    = var.certmanager_chart_version
 }
 
 # Install cert-manager's trust-manager.
 module "trust_manager" {
   source = "../trust-manager"
 
-  chart_version = var.trustmanager_chart_version
   namespace     = var.namespace
+  chart_version = var.trustmanager_chart_version
 
   depends_on = [
     module.cert_manager
   ]
 }
 
-# Install self-signed certificate.
-module "self_signed" {
-  source = "../self-signed"
+# Install self-signed issuer.
+module "issuer_self_signed" {
+  source = "../issuer-self-signed"
 
   namespace = var.namespace
+  name      = "self-signed"
 
   depends_on = [
     module.trust_manager
   ]
 }
 
-# Install self-signed certificate's CA.
-module "ca" {
-  source = "../ca"
+# Install self-signed CA issuer.
+module "issuer_ca" {
+  source = "../issuer-ca"
 
-  namespace = var.namespace
-  name      = "self-signed-ca"
+  namespace               = var.namespace
+  name                    = "self-signed-ca"
+  certificate_issuer_name = module.issuer_self_signed.name
 
   depends_on = [
-    module.self_signed
+    module.issuer_self_signed
   ]
 }

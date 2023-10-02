@@ -2,5 +2,5 @@
 # This code is licensed under MIT license (see LICENSE for details)
 
 terraform {
-  required_version = ">= 0.13"
+  required_version = ">= 1.5"
 }
