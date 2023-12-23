@@ -16,11 +16,11 @@ resource "kubernetes_manifest" "this" {
     kind       = var.kind
     metadata = {
       Issuer = {
-        name      = var.name
+        name      = local.name
         namespace = var.namespace
       }
       ClusterIssuer = {
-        name = var.name
+        name = local.name
       }
     }[var.kind]
     spec = {
