@@ -8,6 +8,7 @@ module "cert_manager" {
   namespace        = var.namespace
   create_namespace = var.create_namespace
   chart_version    = var.certmanager_chart_version
+  chart_values     = var.certmanager_chart_values
 }
 
 # Install cert-manager's trust-manager.
@@ -16,6 +17,7 @@ module "trust_manager" {
 
   namespace     = var.namespace
   chart_version = var.trustmanager_chart_version
+  chart_values  = var.trustmanager_chart_values
 
   depends_on = [
     module.cert_manager

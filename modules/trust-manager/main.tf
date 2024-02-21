@@ -8,5 +8,17 @@ resource "helm_release" "this" {
   chart     = "jetstack/trust-manager"
   name      = var.name
   version   = var.chart_version
-  values    = var.chart_values
+  values = concat([
+    <<-EOF
+    resources:
+      limits:
+        cpu: 10m
+        memory: 56Mi
+      requests:
+        cpu: 2m
+        memory: 28Mi
+    EOF
+    ],
+    var.chart_values
+  )
 }

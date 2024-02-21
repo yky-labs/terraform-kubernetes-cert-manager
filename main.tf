@@ -16,8 +16,34 @@ resource "helm_release" "cert_manager" {
   name      = var.name
   namespace = local.namespace
   version   = var.chart_version
-  values = concat(
-    ["installCRDs: true"],
+  values = concat([
+    <<-EOF
+    installCRDs: true
+    resources:
+      limits:
+        cpu: 10m
+        memory: 64Mi
+      requests:
+        cpu: 2m
+        memory: 32Mi
+    webhook:
+      resources:
+        limits:
+          cpu: 10m
+          memory: 56Mi
+        requests:
+          cpu: 2m
+          memory: 28Mi
+    cainjector:
+      resources:
+        limits:
+          cpu: 10m
+          memory: 56Mi
+        requests:
+          cpu: 2m
+          memory: 28Mi
+    EOF
+    ],
     var.chart_values
   )
 

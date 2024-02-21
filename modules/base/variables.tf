@@ -19,8 +19,20 @@ variable "certmanager_chart_version" {
   default     = null
 }
 
+variable "certmanager_chart_values" {
+  type        = list(string)
+  description = "Cert-manager Helm Chart values."
+  default     = []
+}
+
 variable "trustmanager_chart_version" {
   type        = string
   description = "Trust-manager Helm Chart version."
   default     = null
+}
+
+variable "trustmanager_chart_values" {
+  type        = list(string)
+  description = "Trust-manager Helm Chart values."
+  default     = []
 }
