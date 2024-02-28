@@ -1,25 +1,26 @@
-# (c) 2023 yky-labs
+# Copyright (c) 2023-2024 YKY Labs
 # This code is licensed under MIT license (see LICENSE for details)
 
-variable "name" {
-  type        = string
-  description = "The deploy name. Used to contextualize the name of the generated resources."
-  default     = "trust-manager"
-}
 
 variable "namespace" {
   type        = string
-  description = "Kubernetes namespace."
   default     = "cert-manager"
+  description = "Kubernetes namespace."
 }
 
-variable "chart_version" {
+variable "deploy_name" {
+  type        = string
+  default     = "trust-manager"
+  description = "The deploy name. Used to contextualize the name of the generated resources."
+}
+
+variable "deploy_version" {
   type        = string
   description = "Helm Chart version."
 }
 
-variable "chart_values" {
+variable "deploy_values" {
   type        = list(string)
-  description = "Additionals Helm Chart release values."
   default     = []
+  description = "Additionals Helm Chart release values."
 }

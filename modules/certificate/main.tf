@@ -1,5 +1,6 @@
-# (c) 2023 yky-labs
+# Copyright (c) 2023-2024 YKY Labs
 # This code is licensed under MIT license (see LICENSE for details)
+
 
 locals {
   secret_name = coalesce(var.secret_name, var.name)
@@ -26,7 +27,7 @@ resource "kubernetes_manifest" "cert" {
         algorithm = var.key_algorithm
         size      = var.key_size
       }
-      dnsNames = var.hostnames
+      dnsNames = var.dns_names
     }
   }
 }

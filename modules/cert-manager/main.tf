@@ -1,5 +1,10 @@
-# (c) 2023 yky-labs
+# Copyright (c) 2023-2024 YKY Labs
 # This code is licensed under MIT license (see LICENSE for details)
+
+
+locals {
+  namespace = (var.create_namespace) ? kubernetes_namespace_v1.this[0].metadata[0].name : var.namespace
+}
 
 resource "kubernetes_namespace_v1" "this" {
   count = var.create_namespace ? 1 : 0
@@ -10,15 +15,21 @@ resource "kubernetes_namespace_v1" "this" {
 }
 
 # https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager
-
 resource "helm_release" "cert_manager" {
   chart     = "jetstack/cert-manager"
-  name      = var.name
+
   namespace = local.namespace
-  version   = var.chart_version
+  name      = var.deploy_name
+  version   = var.deploy_version
+
   values = concat([
     <<-EOF
     installCRDs: true
+    config:
+      apiVersion: controller.config.cert-manager.io/v1alpha1
+      kind: ControllerConfiguration
+      featureGates:
+        ExperimentalGatewayAPISupport: true
     resources:
       limits:
         cpu: 10m
@@ -44,10 +55,7 @@ resource "helm_release" "cert_manager" {
           memory: 28Mi
     EOF
     ],
-    var.chart_values
+    var.deploy_values
   )
 
-  depends_on = [
-    kubernetes_namespace_v1.this
-  ]
 }

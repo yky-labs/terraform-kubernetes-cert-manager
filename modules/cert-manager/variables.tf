@@ -14,24 +14,19 @@ variable "create_namespace" {
   description = "Create the Kunernetes namespace."
 }
 
-variable "certmanager_deploy_version" {
+variable "deploy_name" {
   type        = string
-  description = "Cert-manager Helm Chart version."
+  default     = "cert-manager"
+  description = "The deploy name. Used to contextualize the name of the generated resources."
 }
 
-variable "certmanager_deploy_values" {
+variable "deploy_version" {
+  type        = string
+  description = "Helm deploy version."
+}
+
+variable "deploy_values" {
   type        = list(string)
   default     = []
-  description = "Cert-manager Helm Chart values."
-}
-
-variable "trustmanager_deploy_version" {
-  type        = string
-  description = "Trust-manager Helm Chart version."
-}
-
-variable "trustmanager_deploy_values" {
-  type        = list(string)
-  default     = []
-  description = "Trust-manager Helm Chart values."
+  description = "Additionals Helm deploy release values."
 }

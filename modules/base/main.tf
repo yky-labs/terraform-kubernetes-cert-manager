@@ -1,23 +1,24 @@
-# (c) 2023 yky-labs
+# Copyright (c) 2023-2024 YKY Labs
 # This code is licensed under MIT license (see LICENSE for details)
+
 
 # Install cert-manager.
 module "cert_manager" {
-  source = "../.."
+  source = "../cert-manager"
 
   namespace        = var.namespace
   create_namespace = var.create_namespace
-  chart_version    = var.certmanager_chart_version
-  chart_values     = var.certmanager_chart_values
+  deploy_version   = var.certmanager_deploy_version
+  deploy_values    = var.certmanager_deploy_values
 }
 
 # Install cert-manager's trust-manager.
 module "trust_manager" {
   source = "../trust-manager"
 
-  namespace     = var.namespace
-  chart_version = var.trustmanager_chart_version
-  chart_values  = var.trustmanager_chart_values
+  namespace      = var.namespace
+  deploy_version = var.trustmanager_deploy_version
+  deploy_values  = var.trustmanager_deploy_values
 
   depends_on = [
     module.cert_manager

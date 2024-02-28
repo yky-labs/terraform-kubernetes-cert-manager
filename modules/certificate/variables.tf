@@ -1,10 +1,10 @@
-# (c) 2023 yky-labs
+# Copyright (c) 2023-2024 YKY Labs
 # This code is licensed under MIT license (see LICENSE for details)
+
 
 variable "namespace" {
   type        = string
-  default     = "cert-manager"
-  description = "Namespace to deploy Coder to"
+  description = "Kubernetes namespace."
 }
 
 variable "name" {
@@ -28,16 +28,16 @@ variable "issuer_name" {
   description = "Name of the cert issuer to use"
 }
 
-variable "hostnames" {
+variable "dns_names" {
   type        = list(string)
   default     = null
-  description = "Hostnames to use for Coder"
+  description = "DNS names to include in the certificate"
 }
 
 variable "secret_name" {
   type        = string
-  description = "Name of the secret to store the certificate in"
   default     = null
+  description = "Name of the secret to store the certificate in"
 }
 
 variable "common_name" {

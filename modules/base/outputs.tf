@@ -1,5 +1,6 @@
-# (c) 2023 yky-labs
+# Copyright (c) 2023-2024 YKY Labs
 # This code is licensed under MIT license (see LICENSE for details)
+
 
 output "ca_cert_secret_name" {
   value       = module.issuer_ca.cert_secret_name

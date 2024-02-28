@@ -1,5 +1,6 @@
-# (c) 2023 yky-labs
+# Copyright (c) 2023-2024 YKY Labs
 # This code is licensed under MIT license (see LICENSE for details)
+
 
 output "cert_secret_name" {
   value       = data.kubernetes_secret_v1.cert.metadata[0].name
