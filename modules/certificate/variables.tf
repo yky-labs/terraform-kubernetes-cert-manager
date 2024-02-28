@@ -60,6 +60,6 @@ variable "key_size" {
 
 variable "is_ca" {
   type        = bool
-  default     = false
+  default     = null
   description = "Whether the certificate is a CA"
 }
