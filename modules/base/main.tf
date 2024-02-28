@@ -28,6 +28,7 @@ module "trust_manager" {
 # Install self-signed issuer.
 module "issuer_self_signed" {
   source = "../issuer-self-signed"
+  count  = var.create_issuers ? 1 : 0
 
   namespace = var.namespace
   name      = "self-signed"
@@ -40,10 +41,11 @@ module "issuer_self_signed" {
 # Install self-signed CA issuer.
 module "issuer_ca" {
   source = "../issuer-ca"
+  count  = var.create_issuers ? 1 : 0
 
   namespace               = var.namespace
   name                    = "self-signed-ca"
-  certificate_issuer_name = module.issuer_self_signed.name
+  certificate_issuer_name = module.issuer_self_signed[0].name
 
   depends_on = [
     module.issuer_self_signed

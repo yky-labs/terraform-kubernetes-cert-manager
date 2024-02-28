@@ -35,3 +35,8 @@ variable "trustmanager_deploy_values" {
   default     = []
   description = "Trust-manager Helm Chart values."
 }
+
+variable "create_issuers" {
+  type        = bool
+  description = "Create the issuers."
+}
