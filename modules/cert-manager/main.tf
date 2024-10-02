@@ -16,7 +16,9 @@ resource "kubernetes_namespace_v1" "this" {
 
 # https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager
 resource "helm_release" "cert_manager" {
-  chart     = "jetstack/cert-manager"
+
+  repository = "https://charts.jetstack.io"
+  chart      = "cert-manager"
 
   namespace = local.namespace
   name      = var.deploy_name

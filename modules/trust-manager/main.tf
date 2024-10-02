@@ -4,9 +4,11 @@
 
 # https://github.com/cert-manager/trust-manager/blob/main/deploy/charts/trust-manager
 resource "helm_release" "this" {
-  namespace = var.namespace
-  chart     = "jetstack/trust-manager"
 
+  repository = "https://charts.jetstack.io"
+  chart      = "trust-manager"
+
+  namespace = var.namespace
   name      = var.deploy_name
   version   = var.deploy_version
 
